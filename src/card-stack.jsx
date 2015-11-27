@@ -57,7 +57,7 @@ export default React.createClass( {
 		const { text, picture } = this.props.cards[ this.state.cardIndex ];
 
 		return (
-			<div onTouchStart={ this.stopClock }>
+			<div style="cursor: pointer;" onTouchStart={ this.stopClock }>
 				←<Link to="/">Back</Link>
 				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ this.stopClock }>
 					<Card { ...{ text, picture } } />
