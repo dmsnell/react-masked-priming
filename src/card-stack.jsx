@@ -56,10 +56,10 @@ export default React.createClass( {
 		const { text, picture } = this.props.cards[ this.state.cardIndex ];
 
 		return (
-			<div onTouchStart={ this.stopClock }>
+			<div>
 				←<Link to="/">Back</Link>
 				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ this.stopClock }>
-					<Card { ...{ text, picture } } />
+					<Card { ...{ text, picture } } onTouchStart={ this.stopClock } />
 				</HotkeyWrapper>
 				{ responseTime && <p>Answered in { Math.round( responseTime - creationTime ) }ms</p> }
 			</div>
