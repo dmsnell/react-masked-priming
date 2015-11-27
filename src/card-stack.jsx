@@ -5,16 +5,14 @@ import keycode from 'keycode';
 import Card from 'card';
 import HotkeyWrapper from 'hotkey-wrapper';
 
-let creationTime;
-let responseTime;
-
 export default React.createClass( {
 	propTypes: {
 		cards: PropTypes.arrayOf( PropTypes.object ).isRequired
 	},
 
 	getInitialState: () => ( {
-		cardIndex: 0
+		cardIndex: 0,
+		clockIsRunning: false
 	} ),
 
 	componentDidMount() {
@@ -23,6 +21,9 @@ export default React.createClass( {
 
 	scheduleCardFlip() {
 		const card = this.props.cards[ this.state.cardIndex ];
+		if ( 'start clock' === card.command ) {
+			this.startClock();
+		}
 
 		if ( card.delay ) {
 			setTimeout( () => {
@@ -33,27 +34,34 @@ export default React.createClass( {
 		}
 	},
 
-	stopTimer() {
-		if ( responseTime ) { return; }
+	startClock() {
+		this.setState( {
+			clockIsRunning: true,
+			creationTime: performance.now(),
+			responseTime: null
+		} );
+	},
 
-		responseTime = performance.now();
-		console.log( `Took ${ Math.round( responseTime - creationTime ) }ms` );
+	stopClock() {
+		if ( ! this.state.clockIsRunning ) { return; }
+
+		this.setState( {
+			clockIsRunning: false,
+			responseTime: performance.now()
+		} );
 	},
 
 	render() {
-		const { text, picture, command } = this.props.cards[ this.state.cardIndex ];
-
-		if ( 'start clock' === command ) {
-			creationTime = performance.now();
-			responseTime = null;
-		}
+		const { creationTime, responseTime } = this.state;
+		const { text, picture } = this.props.cards[ this.state.cardIndex ];
 
 		return (
 			<div>
 				←<Link to="/">Back</Link>
-				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ creationTime ? this.stopTimer : () => {} }>
+				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ this.stopClock }>
 					<Card { ...{ text, picture } } />
 				</HotkeyWrapper>
+				{ responseTime && <p>Answered in { Math.round( responseTime - creationTime ) }ms</p> }
 			</div>
 		);
 	}

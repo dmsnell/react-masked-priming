@@ -5,15 +5,15 @@ Card -> show "⛩" for 500ms
 Card -> show "Horse" for 100ms
 Card -> show "House" and start clock
 
-Card -> show "⛩" for 2000ms
-Card -> show "cello" for 2000ms
+Card -> show "⛩" for 500ms
+Card -> show "cello" for 200ms
 Card -> show "violin" and start clock
 
 Card -> show "⛩" for 500ms
-Card -> show picture "/pictures/poodle.jpg" show "airedale" for 40ms
-Card -> show picture "/pictures/poodle.jpg" for 100ms
-Card -> show picture "/pictures/airedale.jpg" show "poodle" for 40ms
-Card -> show picture "/pictures/airedale.jpg" and start clock
+Card -> show picture "./pictures/poodle.jpg" show "airedale" for 40ms
+Card -> show picture "./pictures/poodle.jpg" for 100ms
+Card -> show picture "./pictures/airedale.jpg" show "poodle" for 40ms
+Card -> show picture "./pictures/airedale.jpg" and start clock
 
 `;
 
