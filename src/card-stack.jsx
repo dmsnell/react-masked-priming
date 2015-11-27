@@ -16,6 +16,7 @@ export default React.createClass( {
 	} ),
 
 	componentDidMount() {
+		React.initializeTouchEvents( true );
 		this.scheduleCardFlip();
 	},
 
@@ -56,10 +57,10 @@ export default React.createClass( {
 		const { text, picture } = this.props.cards[ this.state.cardIndex ];
 
 		return (
-			<div>
+			<div onTouchStart={ this.stopClock }>
 				←<Link to="/">Back</Link>
 				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ this.stopClock }>
-					<Card { ...{ text, picture } } onClick={ this.stopClock } />
+					<Card { ...{ text, picture } } />
 				</HotkeyWrapper>
 				{ responseTime && <p>Answered in { Math.round( responseTime - creationTime ) }ms</p> }
 			</div>
