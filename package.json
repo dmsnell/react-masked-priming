@@ -1,0 +1,45 @@
+{
+  "name": "react-masked-priming",
+  "version": "1.0.0",
+  "description": "Masked priming app for browser",
+  "main": "src/app.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmsnell/react-masked-priming.git"
+  },
+  "keywords": [
+    "react",
+    "masked",
+    "priming"
+  ],
+  "author": "Dennis Snell <dennis.snell@automattic.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmsnell/react-masked-priming/issues"
+  },
+  "homepage": "https://github.com/dmsnell/react-masked-priming#readme",
+  "dependencies": {
+    "history": "^1.13.1",
+    "keycode": "^2.1.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "css-loader": "^0.23.0",
+    "html-webpack-plugin": "^1.7.0",
+    "node-sass": "^3.4.2",
+    "pegjs": "^0.9.0",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  }
+}

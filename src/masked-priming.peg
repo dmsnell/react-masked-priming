@@ -1,0 +1,65 @@
+Sequence
+ = CardStack*
+
+CardStack
+ = items:Item* lb lb* { return { CardStack: items } }
+
+Item
+ = name:Identifier _ ( "->" / ">" / "<-" ) _ terms:(term:Term _ { return term })* lb {
+ 	var r = terms.reduce( function( o, t ) {
+    	o[ Object.keys(t)[0] ] = t[ Object.keys(t)[0] ];
+        return o;
+    }, {} );
+
+	return { [name]: r }
+}
+
+Command
+ = "and" c:(_ i:Identifier { return i })+{
+	return { command: c.join(' ') }
+}
+
+Term
+ = Command / name:Identifier _ subterm:Identifier? _ value:Value {
+    var v = Object.keys( value ).reduce( function( o, k ) { o[ k ] = value[k]; return o; }, {} );
+    if ( subterm ) { v['type'] = subterm; }
+
+    var o = {};
+
+    if ( 'show' === name ) {
+    	if ( 'picture' === subterm ) {
+        	o['picture'] = value.value;
+        } else {
+        	o['text'] = value.value;
+        }
+    }
+
+    if ( 'for' === name ) {
+    	o['delay'] = value;
+    }
+
+ 	return o;
+ }
+
+Identifier
+ = first:[A-Za-z] rest:[A-Za-z0-9]* { return [first].concat(rest).join('') }
+
+Value
+ = TimeLiteral / StringLiteral / NumberLiteral
+
+TimeLiteral
+ = value:NumberLiteral "ms" {
+	return value.value;
+}
+
+NumberLiteral
+ = value:[0-9]+ { return { value: parseInt( [].concat(value).join(''), 10), type: "number" } }
+
+StringLiteral
+ = '"' value:[^"]+ '"' { return { value: [].concat(value).join(''), type: "string" } }
+
+_ "whitespace"
+ = [ \t]*
+
+lb "linebreak"
+ = "\n"
