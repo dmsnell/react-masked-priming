@@ -59,7 +59,7 @@ export default React.createClass( {
 			<div>
 				←<Link to="/">Back</Link>
 				<HotkeyWrapper keyCode={ keycode( 'space' ) } action={ this.stopClock }>
-					<Card { ...{ text, picture } } onTouchStart={ this.stopClock } />
+					<Card { ...{ text, picture } } onClick={ this.stopClock } />
 				</HotkeyWrapper>
 				{ responseTime && <p>Answered in { Math.round( responseTime - creationTime ) }ms</p> }
 			</div>
